@@ -1,0 +1,62 @@
+{extend name='base'/}
+{block name='content'}
+<div style="margin:50px 50px 0 50px ">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>编号</th>
+            <th>目录名称</th>
+            <th>排序</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="cates" id="vo"}
+        <tr>
+            <td>{$vo.id}</td>
+            <td>{$vo.catename}</td>
+            <td>{$vo.sort}</td>
+            <td>
+                <a href="{:url('admin/category/cateedit',['id' => $vo.id])}" class="btn btn-primary" >编辑</a>
+                <a href="#" dataid="{$vo.id}" class="btn btn-danger cate-del">删除</a>
+            </td>
+        </tr>
+        {/volist}
+
+        </tbody>
+    </table>
+</div>
+
+<script src="/static/jquery/jquery.min.js"></script>
+<script>
+    $(function(){
+        $(".cate-del").click(function(){
+            var id=$(this).attr('dataid');
+            console.log(id);
+            if(confirm("是否确认删除？")==true){
+                $.ajax({
+                    url:"{:url('admin/category/catedel')}",
+                    type:'post',
+                    data:{id:id},
+                    dataType:'json',
+                    success:function(data){
+                        if(data.code==1){
+                            alert("删除成功");
+                            location.reload();
+                        }else{
+                            alert(data.msg);
+                        }
+                    }
+
+                });
+            }else{
+                return false;
+            }
+
+        })
+
+    })
+</script>
+
+
+{/block}

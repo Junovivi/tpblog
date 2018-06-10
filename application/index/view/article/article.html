@@ -1,0 +1,48 @@
+{extend name='base'/}
+{block name='content'}
+<body>
+<div class="site-wrapper">
+    <div class="site-wrapper-inner">
+        <div class="cover-container">
+            <div class="masthead clearfix">
+                <div class="inner">
+                    <h3 class="masthead-brand">Junovivi</h3>
+                    <nav>
+                        <ul class="nav masthead-nav">
+                            <li class="active"><a href="#">Home</a></li>
+                            <li><a href="">Blog</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-8">
+                        <h1 class="article-title">{$articleInfo.title}</h1>
+                        <div class="status">作者：{$articleInfo.author}
+                            <!--{volist name="articleInfo.tags" id="vo"}-->
+                            <!--<span class="label label-default">{$vo}</span>-->
+                            <!--{/volist}-->
+                        </div>
+                        <div class="article-content">
+                            <blockquote>
+                                <p style="font-size:15px">
+                                {$articleInfo.desc}
+                                </p>
+                            </blockquote>
+                            <p style="font-size:20px">
+                            {$articleInfo.content|raw}
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</body>
+{/block}

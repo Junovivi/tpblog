@@ -1,0 +1,79 @@
+{extend name='base'/}
+{block name='content'}
+<div style="margin:50px 20px 0 60px">
+    <form class="form-horizontal" action="" method="post">
+        <input type="hidden" name="id" value="{$articleInfo.id}">
+        <!--文章名称，文章作者，所属目录，摘要，内容，创建时间，修改时间-->
+        <div class="form-group">
+            <label class="col-sm-1 control-label" for="article_name">文章标题</label>
+            <div class="col-sm-6 ">
+                <input class="form-control" type="text" id="article_name" name="article_name" value="{$articleInfo.title}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-1 control-label" for="article_author">文章作者</label>
+            <div class="col-sm-6 ">
+                <input class="form-control" type="text" id="article_author" name="article_author" value="{$articleInfo.author}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-1 control-label" for="article_cate_id">所属栏目</label>
+            <div class="col-sm-6 ">
+                <select id="article_cate_id" name="article_cate_id" class="form-control" >
+                    <option value="">请选择</option>
+                    {volist name="cates" id="vo"}
+                    <option value="{$vo.id}">{$vo.catename}</option>
+                    {/volist}
+                </select>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-1 control-label" for="article_digest">摘要</label>
+            <div class="col-sm-6 ">
+                <textarea class="form-control"  id="article_digest" name="article_digest" cols="30" rows="3" >
+                    {$articleInfo.desc}
+                </textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-1 control-label" for="article_content">内容</label>
+            <div class="col-sm-6 ">
+                <textarea class="form-control"  id="article_content" name="article_content" cols="30" rows="6" >
+                    {$articleInfo.content}
+                </textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-2">
+                <button id="article_edit" class="btn btn-primary" type="submit">确定</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    $(function(){
+        $("#article_edit").click(function (){
+            $.ajax({
+                url:":url('admin/article/articleedit')",
+                type:'post',
+                data:$('form').serialize(),
+                dataType:'json',
+                success:function(data){
+                    if(data.code==1){
+                        alert("修改成功");
+                        location.href = data.url;
+                    }else{
+                        alert("修改失败");
+                    }
+
+                }
+
+            });
+            return false;
+        })
+    });
+</script>
+
+{/block}

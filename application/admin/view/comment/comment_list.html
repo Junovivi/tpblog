@@ -1,0 +1,29 @@
+{extend name='base'/}
+{block name='content'}
+<div style="margin:50px 50px 0 50px ">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>编号</th>
+            <th>评论文章</th>
+            <th>评论作者</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="comments" id="vo"}
+        <tr>
+            <td>{$vo.id}</td>
+            <td>{$vo.catename}</td>
+            <td>{$vo.sort}</td>
+            <td>
+                <button class="btn btn-success">查看</button>
+                <button class="btn btn-danger">删除</button>
+            </td>
+        </tr>
+        {/volist}
+
+        </tbody>
+    </table>
+</div>
+{/block}
